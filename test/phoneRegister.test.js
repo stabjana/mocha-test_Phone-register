@@ -28,4 +28,11 @@ describe('test get types', function () {
         const data = [];
         expect(data).to.deep.equal([]);
     });
+    it('demo deep equal version 2', function () { // fails with equal, because it refers to different arrays
+        expect([1, 2, 3]).to.deep.equal([1, 2, 3]); // it works with deep.equal because i am checking the values inside the array
+    });
+    it('demo equal version 2', function () {
+        const data = [1, 2, 3];
+        expect(data).to.equal(data);
+    });
 });
