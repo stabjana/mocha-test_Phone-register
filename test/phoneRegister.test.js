@@ -36,3 +36,30 @@ describe('test get types', function () {
         expect(data).to.equal(data);
     });
 });
+
+describe('Testing hasNumber', function () {
+    const register = new PhoneRegister(phones);
+
+    it('test number "123456789" exists', function () {
+        expect(register.hasNumber('123456789')).to.be.true;
+    });
+    it('test number "000" does not exist', function () {
+        expect(register.hasNumber('000')).to.be.false;
+    });
+    it('test number "000" does not exist', function () {
+        expect(register.hasNumber('000')).not.to.be.true;
+    });
+});
+
+// function tests
+describe('test getName', function () {
+    const register = new PhoneRegister(phones);
+
+    it('Test 1: number "05040302"', function () {
+        const expectedValue = {
+            firstname: 'Leila',
+            lastname: 'Hökki'
+        };
+        expect(register.getName('05040302')).to.deep.equal(expectedValue);
+    });
+});
