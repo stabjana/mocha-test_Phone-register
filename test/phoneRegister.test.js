@@ -52,14 +52,45 @@ describe('Testing hasNumber', function () {
 });
 
 // function tests
-describe('test getName', function () {
+describe('test getName()', function () {
     const register = new PhoneRegister(phones);
 
-    it('Test 1: number "05040302"', function () {
-        const expectedValue = {
-            firstname: 'Leila',
-            lastname: 'Hökki'
-        };
-        expect(register.getName('05040302')).to.deep.equal(expectedValue);
+    it('test number "12345678"', function () {
+        const expectedValue = { firstname: "Leila", lastname: "Hökki" };
+        expect(register.getName('12345678')).to.deep.equal(expectedValue);
+    });
+
+    it('test number "12345678" v2', function () {
+        expect(register.getName('12345678'))
+            .to.deep.equal({ lastname: "Hökki", firstname: "Leila" });
+    });
+
+    it('test number "0000" to return null', function () {
+        expect(register.getName('0000')).to.be.null;
     });
 });
+
+describe('Test getAllNumbersByType with default data', function () {
+    const register = new PhoneRegister(phones);
+
+    it('test type work', function () {
+        const expectedValue = [
+            {
+                firstname: 'Leila',
+                lastname: 'Hökki',
+                number: { type: 'work', tel: '987654321' }
+            },
+            {
+                firstname: 'Leila',
+                lastname: 'Hökki',
+                number: { type: 'work', tel: '05040302' }
+            },
+            {
+                firstname: 'Matt',
+                lastname: 'River',
+                number: { type: 'work', tel: '2468159' }
+            }
+        ];
+        expect(register.getAllNumbersByType('work')).to.deep.equal(expectedValue);
+    })
+})
