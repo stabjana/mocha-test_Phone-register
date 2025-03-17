@@ -14,7 +14,7 @@ describe('test get types', function () {
     });
     it('empty register v2', function () {
         const register = new PhoneRegister([]);
-        expect(register.getTypes()).to.be.an('array').that.is.empty;
+        expect(register.getTypes()).to.be.an('array').that.is.empty; // dont cara about the content, only array and that its empty (also possible with not empty: .that.is.not.empty)
     });
     it('empty register v3', function () {
         const register = new PhoneRegister([]);
@@ -44,8 +44,8 @@ describe('test get types', function () {
 describe('Testing hasNumber', function () {
     const register = new PhoneRegister(phones);
 
-    it('test number "123456789" exists', function () {
-        expect(register.hasNumber('123456789')).to.be.true;
+    it('test number "12345678" exists', function () {
+        expect(register.hasNumber('12345678')).to.be.true;
     });
     it('test number "000" does not exist', function () {
         expect(register.hasNumber('000')).to.be.false;
@@ -66,7 +66,7 @@ describe('test getName()', function () {
 
     it('test number "12345678" v2', function () {
         expect(register.getName('12345678'))
-            .to.deep.equal({ lastname: "Hökki", firstname: "Leila" });
+            .to.deep.equal({ lastname: "Hökki", firstname: "Leila" }); // SOMETHING ADDED AS SOMEWHERE HERE
     });
 
     it('test number "0000" to return null', function () {
@@ -96,5 +96,22 @@ describe('Test getAllNumbersByType with default data', function () {
             }
         ];
         expect(register.getAllNumbersByType('work')).to.deep.equal(expectedValue);
+    });
+});
+
+describe('Test getPersonsNumbersType', function () {
+    const testValues = [
+        { firstname: 'Leila', lastname: 'Hökki', type: 'work', result: ['987654321', '05040302'] },
+        { firstname: 'Matt', lastname: 'River', type: 'mobile', result: ['0409812345'] },
+        { firstname: 'Matt', lastname: 'x', type: 'mobile', result: [] },
+        { firstname: 'x', lastname: 'River', type: 'mobile', result: [] },
+        { firstname: 'Matt', lastname: 'River', type: 'x', result: [] }
+    ];
+    const register = new PhoneRegister(phones);
+
+    testValues.forEach(function (value) { // value = is test case
+        it(`${value.firstname} ${value.lastname} ${value.type}`, function () {
+            expect(register.getPersonsNumbersByType(value.firstname, value.lastname, value.type)).to.deep.equal(value.result);
+        });
     })
-})
+});
