@@ -35,6 +35,10 @@ describe('test get types', function () {
         const data = [1, 2, 3];
         expect(data).to.equal(data);
     });
+    it('demo  equal 2 not', function () { //toBe in jest is equal here, equal in jest is deep.equal here
+        const data = [1, 2, 3];
+        expect(data).not.to.equal([1, 2, 3]);
+    });
 });
 
 describe('Testing hasNumber', function () {
